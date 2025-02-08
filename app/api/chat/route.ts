@@ -11,6 +11,7 @@ import { TokenMetadataManager } from './helpers/tokensMetadataManager';
 import { TRANSFERS } from './types';
 import { classifyAndExtractEvents } from './helpers/eventsProcessor';
 import {getNFTBalancesTool, getTokenBalancesTool, getTokenDetailsTool, getTransactionTool} from './tools'
+import { getDexPoolsTool, getLendingMarketTool, getNFTMarketTool } from './tools/graphTools';
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",  // Allow requests from any origin for development
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -219,6 +220,9 @@ export async function POST(request: NextRequest) {
         getTokenBalances: getTokenBalancesTool,
         getNFTBalances: getNFTBalancesTool,
         getTokenDetails: getTokenDetailsTool,
+        getDexPools: getDexPoolsTool,
+        getLendingMarketTool: getLendingMarketTool,
+        getAaveData: getNFTMarketTool,
         secondaryFallbackAnalyzeTx: tool({
           description: 'A fallback tool if all other tools failes to get transaction data on a chain. This helps Analyze a blockchain transaction with detailed token and NFT parsing, only to be used if all other tools failes to get transaction data on a chain',
           parameters: z.object({

@@ -1,0 +1,30 @@
+{
+  "subgraphs": [
+    {
+      "name": "uniswap-v3",
+      "subgraphId": "FQ6JYszEKApsBpAmiHesRsd9Ygc6mzmpNRANeVQFYoVX",
+      "queries": {
+        "getTopPools": "query GetTopPools($limit: Int!) { pools(first: $limit, orderBy: totalValueLockedUSD, orderDirection: desc) { id token0 { id symbol } token1 { id symbol } totalValueLockedUSD volume24h feeTier } }",
+        "getPoolDetails": "query GetPoolDetails($poolId: ID!) { pool(id: $poolId) { id token0 { id symbol decimals } token1 { id symbol decimals } totalValueLockedUSD volume24h feeTier liquidity tick } }"
+      }
+    },
+    {
+      "name": "aave-v3",
+      "subgraphId": "3RWFxWNstn4nP3dXiDfKi9GgBoHx7xzc7APkXs1MLEgi",
+      "queries": {
+        "getMarketData": "query GetMarketData { markets { id name totalValueLockedUSD totalBorrowUSD borrowRate supplyRate utilizationRate } reserves { id symbol totalLiquidity totalBorrowed } }",
+        "getUserData": "query GetUserData($userAddress: ID!) { user(id: $userAddress) { id borrowedReservesCount reservesCount positions { market { id name } currentBalance borrowRate } } }",
+        "getAssetData": "query GetAssetData($assetAddress: ID!) { reserve(id: $assetAddress) { id symbol totalLiquidity totalBorrowed utilizationRate borrowRate supplyRate } }"
+      }
+    },
+    {
+      "name": "opensea",
+      "subgraphId": "GSjXo5Vd1EPaMGRJBYe6HoBKv7WSq3miCrRRZJbTCHkT",
+      "queries": {
+        "getCollectionStats": "query GetCollectionStats($collectionAddress: ID!) { collection(id: $collectionAddress) { id name floorPrice totalVolume salesCount } }",
+        "getTokenDetails": "query GetTokenDetails($collectionAddress: ID!, $tokenId: ID!) { token(collection: $collectionAddress, tokenId: $tokenId) { id tokenId lastSalePrice owner } }",
+        "getTradingActivity": "query GetTradingActivity($collectionAddress: ID!, $timeRange: String!) { trades(collection: $collectionAddress, timeRange: $timeRange) { volume transactions averagePrice } }"
+      }
+    }
+  ]
+} 
